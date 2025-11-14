@@ -3,9 +3,7 @@ import * as jsonwebtoken from 'jsonwebtoken';
 import { isTokenRevoked } from './tokenRevocation.js';
 
 // ✅ normalization jwt import for ESM and CJS
-const jwt: typeof jsonwebtoken =
-  // @ts-expect-error runtime-normalization
-  (jsonwebtoken as any).default ?? (jsonwebtoken as any);
+const jwt: typeof jsonwebtoken = (jsonwebtoken as any).default ?? (jsonwebtoken as any);
 
 const JWT_SECRET   = process.env.JWT_SECRET_KEY ?? 'change_me_secret';
 const JWT_ISSUER   = process.env.JWT_ISSUER || undefined;

@@ -152,7 +152,7 @@ interface RegBody {
 export async function reg(
   req: Request<{}, any, RegBody>,
   res: Response
-): Promise<void> {
+): Promise<Response> {
   const expectedFields = {
     username: "İstifadəçi adını qeyd edin",
     password: "Şifrəni qeyd edin",
@@ -279,7 +279,10 @@ interface UsersRow {
   FULL_NAME: Nullable<string>;
 }
 
-export async function users(req: Request<{}, any, any, UsersQuery>, res: Response): Promise<void> {
+export async function users(
+  req: Request<{}, any, any, UsersQuery>,
+  res: Response
+): Promise<Response> {
   try {
     const q = req.query ?? {};
 
@@ -310,9 +313,16 @@ export async function users(req: Request<{}, any, any, UsersQuery>, res: Respons
       .input("orgId", sql.Int, orgId)
       .execute("P_GET_USERS");
 
+    // >>> КЛЮЧЕВОЙ МОМЕНТ: приводим recordsets к массиву
+    const recordsets = result.recordsets as sql.IRecordSet<any>[];
+
     const counters: UsersCounters =
-      (result.recordsets?.[0]?.[0] as UsersCounters) ?? { totalCount: 0, totalPages: 0 };
-    const rows: UsersRow[] = (result.recordsets?.[1] as UsersRow[]) ?? [];
+      (recordsets?.[0]?.[0] as UsersCounters) ?? {
+        totalCount: 0,
+        totalPages: 0,
+      };
+
+    const rows: UsersRow[] = (recordsets?.[1] as UsersRow[]) ?? [];
 
     const items = rows.map((u) => ({
       id: u.USER_ID,
@@ -351,5 +361,4 @@ export async function users(req: Request<{}, any, any, UsersQuery>, res: Respons
     );
   }
 }
-
 export default { login, reg, logout, users };

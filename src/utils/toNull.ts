@@ -1,15 +1,6 @@
-const toNull = <T>(value: T | null | undefined | string): T | null => {
-  if (
-    value === null ||
-    value === undefined ||
-    value === '' ||
-    value === ' ' ||
-    (typeof value === 'object' && value !== null && Object.keys(value).length === 0)
-  ) {
+export default function toNull<T>(value: T | "" | null | undefined): T | null {
+  if (value === "" || value === null || value === undefined) {
     return null;
   }
-
-  return value;
-};
-
-export default toNull;
+  return value as T;
+}
