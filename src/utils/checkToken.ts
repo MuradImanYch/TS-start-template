@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jsonwebtoken from 'jsonwebtoken';
-import { isTokenRevoked } from './tokenRevocation';
+import { isTokenRevoked } from './tokenRevocation.js';
 
 // ✅ normalization jwt import for ESM and CJS
 const jwt: typeof jsonwebtoken =

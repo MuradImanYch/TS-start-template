@@ -1,17 +1,15 @@
 import { Request, Response } from "express";
-import { connect, sql } from "../../utils/db";
-import response from "../../utils/response";
-import responsePaginated from "../../utils/responsePagination";
+import { connect, sql } from "../utils/db.js";
+import response from "../utils/response.js";
+import responsePaginated from "../utils/responsePagination.js";
 // jsonwebtoken: ESM/CJS safety normalization
 import * as jsonwebtoken from "jsonwebtoken";
-const jwt: typeof jsonwebtoken =
-  // @ts-expect-error runtime-normalization for CJS/ESM
-  (jsonwebtoken as any).default ?? (jsonwebtoken as any);
+const jwt: typeof jsonwebtoken = (jsonwebtoken as any).default ?? (jsonwebtoken as any);
 
-import errHandle from "../../utils/fieldErrors";
-import { revokeTokenString, isTokenRevoked } from "../../utils/tokenRevocation";
-import toEmptyString from "../../utils/toEmptyString.js";
-import toNull from "../../utils/toNull.js";
+import errHandle from "../utils/fieldErrors.js";
+import { revokeTokenString, isTokenRevoked } from "../utils/tokenRevocation.js";
+import toEmptyString from "../utils/toEmptyString.js";
+import toNull from "../utils/toNull.js";
 
 /*** HELPERS */
 
