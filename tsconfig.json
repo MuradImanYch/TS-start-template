@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    /* Язык и окружение */
+    "target": "ES2020",                  // во что компилить TS → современный JS
+    "module": "NodeNext",                // поддержка import/export
+    "moduleResolution": "NodeNext",      // как искать модули
+    "esModuleInterop": true,             // позволяет писать import express from "express"
+    "allowSyntheticDefaultImports": true,
+
+    /* Проверки */
+    "strict": true,                      // строгая типизация
+    "skipLibCheck": true,                // не проверять типы у node_modules
+
+    /* Пути и структура */
+    "rootDir": "./src",                  // где твой код
+    "outDir": "./dist",                  // куда компилить JS
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],            // какие файлы учитывать
+  "exclude": ["node_modules", "dist"]    // игнорируем лишнее
+}
